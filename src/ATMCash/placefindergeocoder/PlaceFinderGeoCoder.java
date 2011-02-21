@@ -71,7 +71,7 @@ public class PlaceFinderGeoCoder {
     public final static int STREET_MATCH                                     = 72;
     public final static int STREET_MATCH_ADDRESS_IGNORED                     = 71;
     public final static int STREET_MISMATCH                                  = 70;
-    static String           appId                                            = "7aRM2D6k";
+    static String           appId                                            = "";
     static String           url                                              = "http://where.yahooapis.com/geocode";
 
     /**
