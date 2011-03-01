@@ -30,7 +30,7 @@ import java.util.logging.Logger;
  * A basic wrapper to the Yahoo PlaceFinder API v1.0
  *
  *
- * @version        0.3, 11/02/18
+ * @version        0.4, 11/03/01
  * @author         Ran Grushkowsky <rang at atmcash.com> from http://www.ATMCash.com
  */
 public class PlaceFinderGeoCoder {
@@ -73,6 +73,16 @@ public class PlaceFinderGeoCoder {
     public final static int STREET_MISMATCH                                  = 70;
     static String           appId                                            = "";
     static String           url                                              = "http://where.yahooapis.com/geocode";
+
+    /**
+     * Method description
+     *
+     *
+     * @param appId (String)
+     */
+    public static void setAppId(String appId) {
+        PlaceFinderGeoCoder.appId = appId;
+    }
 
     /**
      * Converts an XML input to ResultSet object
@@ -155,6 +165,46 @@ public class PlaceFinderGeoCoder {
         float north = 0;
         float south = 0;
         float west  = 0;
+
+        /**
+         * Method description
+         *
+         *
+         * @return (float)
+         */
+        public float getEast() {
+            return east;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (float)
+         */
+        public float getNorth() {
+            return north;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (float)
+         */
+        public float getSouth() {
+            return south;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (float)
+         */
+        public float getWest() {
+            return west;
+        }
     }
 
 
@@ -207,6 +257,416 @@ public class PlaceFinderGeoCoder {
         int                    woeid        = 0;
         int                    woetype      = 0;
         String                 xstreet      = "";
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getAreacode() {
+            return areacode;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (ArrayList<BoundingBox>)
+         */
+        public ArrayList<BoundingBox> getBoundingbox() {
+            return boundingbox;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getCity() {
+            return city;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getCountry() {
+            return country;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getCountrycode() {
+            return countrycode;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getCounty() {
+            return county;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getCountycode() {
+            return countycode;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getCross() {
+            return cross;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getHash() {
+            return hash;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getHouse() {
+            return house;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (float)
+         */
+        public float getLatitude() {
+            return latitude;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getLevel0() {
+            return level0;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getLevel0code() {
+            return level0code;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getLevel1() {
+            return level1;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getLevel1code() {
+            return level1code;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getLevel2() {
+            return level2;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getLevel2code() {
+            return level2code;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getLevel3() {
+            return level3;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getLevel4() {
+            return level4;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getLine1() {
+            return line1;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getLine2() {
+            return line2;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getLine3() {
+            return line3;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getLine4() {
+            return line4;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (float)
+         */
+        public float getLongitude() {
+            return longitude;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getNeighborhood() {
+            return neighborhood;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (float)
+         */
+        public float getOffsetlat() {
+            return offsetlat;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (float)
+         */
+        public float getOffsetlon() {
+            return offsetlon;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getPostal() {
+            return postal;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (int)
+         */
+        public int getQuality() {
+            return quality;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (int)
+         */
+        public int getRadius() {
+            return radius;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getState() {
+            return state;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getStatecode() {
+            return statecode;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getStreet() {
+            return street;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getTimezone() {
+            return timezone;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getUnit() {
+            return unit;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getUnittype() {
+            return unittype;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getUzip() {
+            return uzip;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (int)
+         */
+        public int getWoeid() {
+            return woeid;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (int)
+         */
+        public int getWoetype() {
+            return woetype;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getXstreet() {
+            return xstreet;
+        }
     }
 
 
@@ -224,5 +684,65 @@ public class PlaceFinderGeoCoder {
         String Locale       = "";
         int    Quality      = 0;
         List   Results      = new ArrayList();
+
+        /**
+         * Method description
+         *
+         *
+         * @return (int)
+         */
+        public int getError() {
+            return Error;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getErrorMessage() {
+            return ErrorMessage;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (int)
+         */
+        public int getFound() {
+            return Found;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getLocale() {
+            return Locale;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (int)
+         */
+        public int getQuality() {
+            return Quality;
+        }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (List)
+         */
+        public List getResults() {
+            return Results;
+        }
     }
 }
