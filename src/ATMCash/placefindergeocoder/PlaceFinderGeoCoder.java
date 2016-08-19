@@ -8,23 +8,24 @@ package ATMCash.placefindergeocoder;
 
 //~--- non-JDK imports --------------------------------------------------------
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thoughtworks.xstream.XStream;
-
-//~--- JDK imports ------------------------------------------------------------
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+//~--- JDK imports ------------------------------------------------------------
 
 /**
  * A basic wrapper to the Yahoo PlaceFinder API v1.0
@@ -34,6 +35,8 @@ import java.util.logging.Logger;
  * @author         Ran Grushkowsky <rang at atmcash.com> from http://www.ATMCash.com
  */
 public class PlaceFinderGeoCoder {
+    static final Logger     logger                                           =
+        LogManager.getLogger(PlaceFinderGeoCoder.class.getName());
     public final static int ADDRESS_MATCH_WITH_STREET_MATCH                  = 87;
     public final static int ADDRESS_MATCH_WITH_STREET_MISMATCH               = 85;
     public final static int ADDRESS_MISMATCH_WITH_STREET_MATCH               = 86;
@@ -72,7 +75,8 @@ public class PlaceFinderGeoCoder {
     public final static int STREET_MATCH_ADDRESS_IGNORED                     = 71;
     public final static int STREET_MISMATCH                                  = 70;
     static String           appId                                            = "";
-    static String           url                                              = "http://where.yahooapis.com/geocode";
+    static String           url                                              =
+        "http://query.yahooapis.com/v1/public/yql";
 
     /**
      * Method description
@@ -98,15 +102,36 @@ public class PlaceFinderGeoCoder {
         ResultSet response = null;
         XStream   xstream  = new XStream();
 
+        logger.trace("Going to parse xml object");
         xstream.alias("ResultSet", ResultSet.class);
         xstream.alias("Result", ResultClass.class);
         xstream.alias("BoundingBox", BoundingBox.class);
-        xstream.addImplicitCollection(ResultSet.class, "Results");
+        xstream.alias("query", ResultSet.class);
+        xstream.addImplicitCollection(ResultSet.class, "results");
+        logger.trace("Got results");
+        logger.trace(xml);
 
         try {
             response = (ResultSet) xstream.fromXML(xml);
         } catch (Exception e) {
-            System.out.println("Exception: " + e.getMessage() + " " + e.getCause());
+            logger.catching(e);
+        }
+
+        return response;
+    }
+
+    private static Query jsonToObject(String xml) {
+        ObjectMapper mapper   = new ObjectMapper();
+        Query        response = null;
+
+        mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+
+        // System.out.println("Got results");
+        // System.out.println(xml);
+        try {
+            response = mapper.readValue(xml, Query.class);
+        } catch (Exception e) {
+            logger.catching(e);
         }
 
         return response;
@@ -122,17 +147,21 @@ public class PlaceFinderGeoCoder {
      * @return (ResultSet)
      *          Populated ResultSet object, or null if an error has occurred
      */
-    public static ResultSet geocodeAddress(String address) {
-        return xmlToObject(urlToString(address));
+    public static Query geocodeAddress(String address) {
+        return jsonToObject(urlToString(address));
     }
 
     private static String urlToString(String address) {
         StringBuilder text = new StringBuilder();
 
         try {
-            URL page = null;
+            URL page;
 
-            page = new URL(url + "?q=" + URLEncoder.encode(address, "UTF-8") + "&appid=" + appId);
+            page = new URL(url + "?q="
+                           + URLEncoder.encode("select * from geo.placefinder where text=\"" + address + "\"",
+                                               "UTF-8") + "&appid=" + appId + "&format=json");
+            logger.trace(url + "?q=" + URLEncoder.encode("select * from geo.placefinder where text=\"" + address + "\"",
+                    "UTF-8") + "&appid=" + appId + "&format=json");
 
             HttpURLConnection conn = (HttpURLConnection) page.openConnection();
 
@@ -147,7 +176,7 @@ public class PlaceFinderGeoCoder {
                 line = buff.readLine();
             }
         } catch (IOException ex) {
-            Logger.getLogger(PlaceFinderGeoCoder.class.getName()).log(Level.SEVERE, null, ex);
+            logger.catching(ex);
         }
 
         return text.toString();
@@ -667,6 +696,27 @@ public class PlaceFinderGeoCoder {
         public String getXstreet() {
             return xstreet;
         }
+
+        /**
+         * Method description
+         *
+         *
+         * @return (String)
+         */
+        public String getAddressLine() {
+            String[] address_fields = {
+                line1, line2, line3, line4, postal, city, state, country
+            };
+            List     address        = new ArrayList();
+
+            for (String field : address_fields) {
+                if (!field.isEmpty()) {
+                    address.add(field);
+                }
+            }
+
+            return StringUtils.join(address, ",");
+        }
     }
 
 
@@ -683,7 +733,7 @@ public class PlaceFinderGeoCoder {
         int    Found        = 0;
         String Locale       = "";
         int    Quality      = 0;
-        List   Results      = new ArrayList();
+        List   results      = new ArrayList();
 
         /**
          * Method description
@@ -742,7 +792,7 @@ public class PlaceFinderGeoCoder {
          * @return (List)
          */
         public List getResults() {
-            return Results;
+            return results;
         }
     }
 }
