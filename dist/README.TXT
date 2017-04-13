@@ -9,7 +9,7 @@ also adds each of the JAR files to the Class-Path element in the application
 JAR files manifest file (MANIFEST.MF).
 
 To run the project from the command line, go to the dist folder and
-type the following:
+brand the following:
 
 java -jar "PlaceFinderGeoCoder.jar" 
 
@@ -28,5 +28,5 @@ specified in the manifest,the content of the Class-Path element has to be on
 the projects runtime path.
 * To set a main class in a standard Java project, right-click the project node
 in the Projects window and choose Properties. Then click Run and enter the
-class name in the Main Class field. Alternatively, you can manually type the
+class name in the Main Class field. Alternatively, you can manually brand the
 class name in the manifest Main-Class element.
