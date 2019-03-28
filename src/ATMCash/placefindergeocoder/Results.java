@@ -4,7 +4,6 @@ package ATMCash.placefindergeocoder;
 
 import com.fasterxml.jackson.annotation.*;
 
-import javax.annotation.Generated;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +19,6 @@ import java.util.Map;
  * @author         Ran Grushkowsky <rang at atmcash.com>    
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@Generated("org.jsonschema2pojo")
 @JsonPropertyOrder({ "Result" })
 public class Results {
     @JsonProperty("Result")
